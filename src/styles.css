@@ -78,8 +78,8 @@ h1 {
   gap: 24px;
 }
 .form-box, .list-box {
-  flex: 1 1 320px;
   background: #fff;
+  width: 420px;
   padding: 24px;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -89,7 +89,26 @@ h1 {
 .list-box {
   overflow-x: hidden;  /* 가로 스크롤 제거 */
 }
+/* 편집 모드 에러 메시지 */
+.transaction-item.editing {
+  position: relative;  /* 자식 .item-error 의 absolute 기준 */
+}
 
+/* 절대 위치 에러 메시지 */
+.item-error {
+  position: absolute;
+  top: 8px;           /* 위에서 8px 아래 */
+  right: 8px;         /* 오른쪽 끝에서 8px 왼쪽 */
+  max-width: 200px;   /* 최대 너비 */
+  padding: 8px 12px;
+  background: #ffe6e6;
+  border: 1px solid #ff4d4f;
+  color: #a8071a;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  z-index: 5;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
 /* ==================== 폼 & 인풋 ==================== */
 .transaction-form input,
 .transaction-form select {
@@ -105,7 +124,25 @@ h1 {
   border-color: #7b44ff;
   outline: none;
 }
+/* 에러 메시지 박스 */
+.error-box {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: #ffe6e6;
+  border: 1px solid #ff4d4f;
+  color: #a8071a;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
 
+/* 기존 폼 레이블 스타일 (선택사항) */
+.transaction-form label {
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 4px;
+  font-weight: 500;
+  color: #333;
+}
 /* 선택 + 카테고리 추가 버튼 묶음 */
 .select-wrap {
   position: relative;
@@ -266,6 +303,7 @@ h1 {
 /* ==================== 편집 모드 ==================== */
 .transaction-item.editing {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   align-items: center;
   padding: 10px;
@@ -367,3 +405,32 @@ h1 {
   }
 }
 
+.transaction-item.editing {
+  position: relative; /* item-error 기준 */
+}
+
+/* 에러 박스: 진입·퇴장 애니메이션 */
+.item-error {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  max-width: 200px;
+  padding: 4px 8px;
+  background: #ffe6e6;
+  border: 1px solid #ff4d4f;
+  color: #a8071a;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  z-index: 5;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+
+  opacity: 0;
+  animation: errorFade 1.8s ease-out forwards;
+}
+
+@keyframes errorFade {
+  0%   { opacity: 0; transform: translateY(-10px); }
+  10%  { opacity: 1; transform: translateY(0); }
+  80%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
