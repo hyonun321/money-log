@@ -37,42 +37,50 @@ interface Props {
 
    return (
         <>
-       <form className="transaction-form" onSubmit={handleSubmit}>
+        <form className="transaction-form" onSubmit={handleSubmit}>
+            카테고리
+        <div className="select-wrap">
+            <select value={category} onChange={e => setCategory(e.target.value)}>
+                {categories.map(cat => (
+                <option key={cat} value={cat}>{cat}</option>
+                ))}
+            </select>
+            <button
+                type="button"
+                className="btn-add-cat"
+                onClick={() => setIsModalOpen(true)}
+            >＋</button>
+        </div>
+               사유
          <input
            type="text"
            placeholder="내용 입력..."
            value={description}
            onChange={e => setDescription(e.target.value)}
-         />
+               />
+               금액
          <input
            type="number"
            placeholder="금액 입력..."
            value={amount}
            onChange={e => setAmount(e.target.value === '' ? '' : Number(e.target.value))}
          />
-         <div className="select-wrap">
-           <select value={category} onChange={e => setCategory(e.target.value)}>
-             {categories.map(cat => (
-               <option key={cat} value={cat}>{cat}</option>
-             ))}
-           </select>
-           <button
-             type="button"
-             className="btn-add-cat"
-             onClick={() => setIsModalOpen(true)}
-           >＋</button>
-        </div>
+
         <div className="radio-group">
-          <button
-            type="button"
-            className={type === 'income' ? 'radio-btn selected' : 'radio-btn'}
-            onClick={() => setType('income')}
-          >수입</button>
-          <button
-            type="button"
-            className={type === 'expense' ? 'radio-btn selected' : 'radio-btn'}
-            onClick={() => setType('expense')}
-          >지출</button>
+            <button
+                type="button"
+                className={`radio-btn income ${type === 'income' ? 'selected' : ''}`}
+                onClick={() => setType('income')}
+            >
+                수입
+            </button>
+            <button
+                type="button"
+                className={`radio-btn expense ${type === 'expense' ? 'selected' : ''}`}
+                onClick={() => setType('expense')}
+            >
+                지출
+            </button>
         </div>
 
          <button type="submit" className="add-btn">거래 추가</button>

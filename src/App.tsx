@@ -42,6 +42,8 @@ export default function App() {
           <h2>내역</h2>
           <TransactionList
             transactions={transactions}
+            categories={categories}
+            onAddCategory={addCategory}
             onEdit={editTransaction}
             onDelete={deleteTransaction}
           />
