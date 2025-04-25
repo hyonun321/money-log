@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import useLocalStorage from './hooks/useLocalStorage';
 import { Transaction } from './types';
 import Balance from './components/Balance';
