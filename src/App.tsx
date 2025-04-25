@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import useLocalStorage from './hooks/useLocalStorage';
+import Balance from './components/Balance';
+import TransactionForm from './components/TransactionForm';
+import TransactionList from './components/TransactionList';
+import { Transaction } from './types';
+import './styles.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [transactions, setTransactions] = useLocalStorage<Transaction[]>('transactions', []);
+
+  const addTransaction = (tx: Transaction) => {
+    setTransactions([tx, ...transactions]);
+  };
+
+  const deleteTransaction = (id: number) => {
+    setTransactions(transactions.filter(t => t.id !== id));
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container">
+      <h1>용돈기입장</h1>
+      <Balance transactions={transactions} />
+      <div className="main">
+        <div className="form-box">
+          <h2>새로운 거래 추가</h2>
+          <TransactionForm onAdd={addTransaction} />
+        </div>
+        <div className="list-box">
+          <h2>내역</h2>
+          <TransactionList transactions={transactions} onDelete={deleteTransaction} />
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
-
-export default App
