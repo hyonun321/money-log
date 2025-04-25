@@ -24,6 +24,7 @@ export default function Balance({ transactions }: Props) {
           <h4>수입</h4>
           <p>₩{income.toLocaleString()}</p>
         </div>
+        <div className="divider" />
         <div className="expense">
           <h4>지출</h4>
           <p>₩{expense.toLocaleString()}</p>
