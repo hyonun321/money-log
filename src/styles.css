@@ -36,9 +36,16 @@ h1 {
 .summary {
   background: #fff;
   padding: 16px 24px;
+  width: 300px;
+  justify-content: center;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
+
+.balance p {
+  color: #148bcb;
+}
+
 .summary {
   display: flex;
   align-items: center;
