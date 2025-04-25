@@ -66,3 +66,10 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.amount.income {
+  color: #27ae60;
+}
+.amount.expense {
+  color: #e74c3c;
+}

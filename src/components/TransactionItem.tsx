@@ -128,7 +128,7 @@ const handleDelete = () => {
         <span className="category">{transaction.category}</span>
         <span className="desc">{transaction.description}</span>
       </div>
-      <span className="amount">
+<span className={`amount ${transaction.type}`}>
         {transaction.type === 'income' ? '+' : '-'}₩{transaction.amount.toLocaleString()}
       </span>
       <div className="item-right">
