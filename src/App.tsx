@@ -1,24 +1,33 @@
-import useLocalStorage from './hooks/useLocalStorage';
-import { Transaction } from './types';
-import Balance from './components/Balance';
-import TransactionForm from './components/TransactionForm';
-import TransactionList from './components/TransactionList';
-import './styles.css';
+import useLocalStorage from "./hooks/useLocalStorage";
+import { Transaction } from "./types";
+import Balance from "./components/Balance";
+import TransactionForm from "./components/TransactionForm";
+import TransactionList from "./components/TransactionList";
+import "./styles.css";
 
 export default function App() {
-  const [transactions, setTransactions] = useLocalStorage<Transaction[]>('transactions', []);
-  const [categories, setCategories] = useLocalStorage<string[]>('categories', ['용돈', '영화', '외식']);
+  const [transactions, setTransactions] = useLocalStorage<Transaction[]>(
+    "transactions",
+    [],
+  );
+  const [categories, setCategories] = useLocalStorage<string[]>("categories", [
+    "용돈",
+    "영화",
+    "외식",
+  ]);
 
   const addTransaction = (tx: Transaction) => {
     setTransactions([tx, ...transactions]);
   };
 
   const editTransaction = (updated: Transaction) => {
-    setTransactions(transactions.map(t => t.id === updated.id ? updated : t));
+    setTransactions(
+      transactions.map((t) => (t.id === updated.id ? updated : t)),
+    );
   };
 
   const deleteTransaction = (id: number) => {
-    setTransactions(transactions.filter(t => t.id !== id));
+    setTransactions(transactions.filter((t) => t.id !== id));
   };
 
   const addCategory = (cat: string) => {

@@ -1,4 +1,4 @@
-import { Transaction } from '../types';
+import { Transaction } from "../types";
 
 interface Props {
   transactions: Transaction[];
@@ -6,10 +6,10 @@ interface Props {
 
 export default function Balance({ transactions }: Props) {
   const income = transactions
-    .filter(t => t.type === 'income')
+    .filter((t) => t.type === "income")
     .reduce((sum, t) => sum + t.amount, 0);
   const expense = transactions
-    .filter(t => t.type === 'expense')
+    .filter((t) => t.type === "expense")
     .reduce((sum, t) => sum + t.amount, 0);
   const balance = income - expense;
 
