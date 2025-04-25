@@ -1,7 +1,7 @@
 import { useState ,useEffect} from 'react';
 import { Transaction } from '../types';
 import CategoryModal from './CategoryModal';
-
+import ConfirmModal from './ConfirmModal';
 interface Props {
   transaction: Transaction;
   categories: string[];
@@ -23,7 +23,12 @@ export default function TransactionItem({
   const [cat, setCat] = useState(transaction.category);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
+    const [confirmOpen, setConfirmOpen] = useState(false);
+    
+const handleDelete = () => {
+    onDelete(transaction.id);
+    setConfirmOpen(false);
+  };
     
     useEffect(() => {
     if (!error) return;
@@ -129,11 +134,17 @@ export default function TransactionItem({
       <div className="item-right">
         <button className="edit-btn" onClick={() => setIsEditing(true)}>✎</button>
         <button
-          className="delete-btn"
-          onClick={() => {
-            if (confirm('정말 삭제하시겠습니까?')) onDelete(transaction.id);
-          }}
-        >×</button>
+                  className="delete-btn"
+                  onClick={() => setConfirmOpen(true)}
+              >×</button>
+              
+<ConfirmModal
+        isOpen={confirmOpen}
+        message={`${transaction.category} • ${transaction.description} 을(를) 삭제합니다.`}
+        onConfirm={handleDelete}
+        onCancel={() => setConfirmOpen(false)}
+      />
+
       </div>
     </div>
   );
